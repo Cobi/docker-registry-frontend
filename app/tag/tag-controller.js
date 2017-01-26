@@ -120,6 +120,29 @@ angular.module('tag-controller', ['registry-services'])
       return filterFilter($scope.displayedTags, { selected: true });
     };
 
+    // sort tags
+    $scope.orderByCreated  = true;
+
+    function compare(a, b){
+      var at = new Date(a.details.created),
+          bt = new Date(b.details.created);
+
+      return at.getTime() - bt.getTime();
+    }
+
+    $scope.sortTags = function(){
+      if($scope.orderByCreated){
+        $scope.displayedTags.sort(compare);
+      }
+      else{
+        // if $scope.orderByCreated is false, that means $scope.displayedTags.sort(compare) has been invoked.
+        // then just need to call reverse() function
+        $scope.displayedTags.reverse();
+      }
+
+      $scope.orderByCreated = !$scope.orderByCreated;
+    }
+
     $scope.openConfirmTagDeletionDialog = function(size) {
       var modalInstance = $modal.open({
           animation: true,
