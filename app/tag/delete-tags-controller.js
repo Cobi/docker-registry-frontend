@@ -16,6 +16,10 @@ angular.module('delete-tags-controller', ['registry-services'])
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
 
+    $scope.showTags = [];
+    angular.forEach($scope.items, function(value, key){
+      $scope.showTags.push($scope.repositoryUser + '/' + $scope.repositoryName + ':' + value.name);
+    });
     // Callback that triggers deletion of tags and reloading of page
     $scope.ok = function () {
       angular.forEach($scope.items, function(value, key) {
